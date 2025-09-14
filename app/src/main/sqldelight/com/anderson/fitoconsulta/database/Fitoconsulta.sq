@@ -1,0 +1,35 @@
+CREATE TABLE plant (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL UNIQUE,
+    descricao TEXT,
+    parte_utilizada TEXT,
+    preparo TEXT,
+    indicacoes TEXT,
+    riscos_contraindicaoes TEXT,
+    referencias TEXT,
+    image_res_name TEXT
+);
+
+selectAll:
+SELECT * FROM plant ORDER BY nome ASC;
+
+searchByName:
+SELECT * FROM plant WHERE nome LIKE ? ORDER BY nome ASC;
+
+getById:
+SELECT * FROM plant WHERE id = ?;
+
+insert:
+INSERT OR IGNORE INTO plant(
+    nome,
+    descricao,
+    parte_utilizada,
+    preparo,
+    indicacoes,
+    riscos_contraindicaoes,
+    referencias,
+    image_res_name
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM plant;
