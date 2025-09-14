@@ -13,7 +13,7 @@ import com.anderson.fitoconsulta.screens.home.HomeScreen
 object Routes {
     const val HOME = "home"
     const val DETAIL = "detail/{plantId}"
-    const val ABOUT = "about" // <-- Nova rota
+    const val ABOUT = "about"
     fun getDetailRoute(plantId: Long) = "detail/$plantId"
 }
 
@@ -30,7 +30,6 @@ fun AppNavigation() {
                 onPlantClick = { plantId ->
                     navController.navigate(Routes.getDetailRoute(plantId))
                 },
-                // Adicionaremos este callback para a ação do menu
                 onAboutClick = {
                     navController.navigate(Routes.ABOUT)
                 }
@@ -45,8 +44,6 @@ fun AppNavigation() {
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-
-        // --- NOVO DESTINO DE NAVEGAÇÃO ---
         composable(Routes.ABOUT) {
             AboutScreen(
                 onNavigateBack = { navController.popBackStack() }

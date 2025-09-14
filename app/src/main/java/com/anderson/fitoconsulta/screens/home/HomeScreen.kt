@@ -20,11 +20,10 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
     onPlantClick: (Long) -> Unit,
-    onAboutClick: () -> Unit // Novo callback que recebemos do AppNavigation
+    onAboutClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    // Estados para controlar o Navigation Drawer
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -36,20 +35,17 @@ fun HomeScreen(
                 NavigationDrawerItem(
                     icon = { Icon(Icons.Default.Info, contentDescription = "Sobre") },
                     label = { Text("Sobre o App") },
-                    selected = false, // Não é um item selecionável, apenas uma ação
+                    selected = false,
                     onClick = {
-                        // Fecha o drawer e navega para a tela Sobre
                         scope.launch { drawerState.close() }
                         onAboutClick()
                     }
                 )
-                // Você poderia adicionar mais itens aqui no futuro
             }
         }
     ) {
         Scaffold(
             topBar = {
-                // ... (O código da sua TopAppBar continua exatamente o mesmo)
                 TopAppBar(
                     title = {
                         if (!uiState.isSearchBarVisible) {
@@ -57,14 +53,12 @@ fun HomeScreen(
                         }
                     },
                     navigationIcon = {
-                        // AGORA ESTE BOTÃO ABRE O DRAWER
                         IconButton(onClick = {
                             scope.launch { drawerState.open() }
                         }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     },
-                    // ... (O resto da sua TopAppBar com a lógica de busca)
                     actions = {
                         if (uiState.isSearchBarVisible) {
                             // ...
@@ -77,7 +71,6 @@ fun HomeScreen(
                 )
             }
         ) { paddingValues ->
-            // ... (O conteúdo com a LazyColumn continua o mesmo)
             if (uiState.isLoading) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()

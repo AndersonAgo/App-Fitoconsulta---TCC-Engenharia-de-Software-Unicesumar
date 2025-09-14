@@ -27,18 +27,18 @@ val appModule = module {
                 inputStream.copyTo(outputStream)
                 inputStream.close()
                 outputStream.close()
-                Log.d("FitoconsultaDebug", "Banco de dados copiado com SUCESSO.")
+                Log.d("FitoconsultaDebug", "Banco de dados copiado")
             } catch (e: Exception) {
-                Log.e("FitoconsultaDebug", "ERRO AO COPIAR BANCO DE DADOS", e)
-                throw RuntimeException("Erro ao copiar o banco de dados pré-populado", e)
+                Log.e("FitoconsultaDebug", "erro ao copiar o banco de dados", e)
+                throw RuntimeException("Erro ao copiar o banco de dados ja populado", e)
             }
         } else {
-            Log.d("FitoconsultaDebug", "Banco de dados já existe. Não foi necessário copiar.")
+            Log.d("FitoconsultaDebug", "banco de dados ja existe")
         }
 
         val callback = object : AndroidSqliteDriver.Callback(FitoconsultaDatabase.Schema) {
             override fun onCreate(db: SupportSQLiteDatabase) {
-                Log.d("FitoconsultaDebug", "Driver onCreate chamado, mas não faremos nada pois o DB já está populado.")
+                Log.d("FitoconsultaDebug", "Driver onCreate chamado, mas nada foi feito poruqe o DB já está populado.")
             }
         }
         val driver = AndroidSqliteDriver(

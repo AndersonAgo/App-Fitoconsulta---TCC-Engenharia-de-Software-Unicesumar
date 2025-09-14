@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import android.util.Log
 
 data class HomeScreenState(
     val plants: List<Plant> = emptyList(),
@@ -30,9 +29,6 @@ class HomeViewModel(private val repository: PlantRepository) : ViewModel() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             val plants = repository.getAllPlants()
-
-            //Log para teste
-            Log.d("FitoconsultaDebug", "Plantas carregadas do repositório: ${plants.size} itens.")
 
             _uiState.update { it.copy(plants = plants, isLoading = false) }
         }
